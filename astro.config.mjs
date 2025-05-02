@@ -7,10 +7,12 @@ import svelte from '@astrojs/svelte';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
-  integrations: [mdx(), sitemap(), svelte()],
+  integrations: [mdx(), sitemap(), svelte(), react()],
 
   vite: {
     plugins: [tailwindcss()],
