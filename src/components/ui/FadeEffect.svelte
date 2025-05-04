@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { animate } from 'motion/react';
 
   export let duration = 0.5;
   export let delay = 0;
@@ -17,17 +18,22 @@
   onMount(() => {
     if (!container) return;
 
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: container,
-      start: scrollStart,
-      end: scrollEnd,
-      onEnter: () => animateIn(),
-      onLeave: () => reset(),
-      onEnterBack: () => animateIn(),
-      onLeaveBack: () => reset(),
-      markers: markers,
-      once: once,
-    });
+    let scrollTrigger: ScrollTrigger;
+
+    if (once == false) {
+      scrollTrigger = ScrollTrigger.create({
+        trigger: container,
+        start: scrollStart,
+        end: scrollEnd,
+        onEnter: () => animateIn(),
+        onLeave: () => reset(),
+        onEnterBack: () => animateIn(),
+        onLeaveBack: () => reset(),
+        markers: markers,
+      });
+    } else {
+      animateIn();
+    }
 
     function animateIn() {
       gsap.fromTo(
