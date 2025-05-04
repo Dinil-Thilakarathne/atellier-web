@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import AnimatedImage from '../ui/AnimatedImage.svelte';
 import ScrollBasedText from '../ui/ScrollBasedText.svelte';
 import FadeEffect from '../ui/FadeEffect.svelte';
+import StaggerText from '../ui/StaggerText.tsx';
 export const HeroHeading = 'Beautiful and environmentally friendly homes.';
 ---
 
@@ -19,15 +20,15 @@ export const HeroHeading = 'Beautiful and environmentally friendly homes.';
     <div class="flex gap-x-4">
       <FadeEffect client:only="svelte" duration={1} delay={0.5}>
         <h2 class="flex items-center justify-center gap-x-2">
-          <span class="text-xl">Completed Projects</span>
+          <StaggerText text="Completed Projects" client:only="react" as="h1" />
           <Icon name="rightTopArrow" />
         </h2>
       </FadeEffect>
       <FadeEffect client:only="svelte" duration={1} delay={0.6}>
-          <h2 class="flex items-center justify-center gap-x-2">
-            <span class="text-xl">Active Projects</span>
-            <Icon name="rightTopArrow" />
-          </h2>
+        <h2 class="flex items-center justify-center gap-x-2">
+          <StaggerText text="Active Projects" client:only="react" as="h1" />
+          <Icon name="rightTopArrow" />
+        </h2>
       </FadeEffect>
     </div>
 
