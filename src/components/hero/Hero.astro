@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import AnimatedImage from '../ui/AnimatedImage.svelte';
+import ScrollBasedText from '../ui/ScrollBasedText.svelte';
+import FadeEffect from '../ui/FadeEffect.svelte';
+export const HeroHeading = 'Beautiful and environmentally friendly homes.';
+---
+
+<section class="flex grow flex-col">
+  <div class="container mx-auto flex h-full w-full grow flex-col gap-y-8 py-16">
+    <div class="w-[60%]">
+      <ScrollBasedText
+        text={HeroHeading}
+        className="font-clash-display text-7xl text-balance"
+        duration={1}
+        client:only="svelte"
+      />
+    </div>
+    <div class="flex gap-x-4">
+      <FadeEffect client:only="svelte" duration={1} delay={0.5}>
+        <h2 class="flex items-center justify-center gap-x-2">
+          <span class="text-xl">Completed Projects</span>
+          <Icon name="rightTopArrow" />
+        </h2>
+      </FadeEffect>
+      <FadeEffect client:only="svelte" duration={1} delay={0.6}>
+          <h2 class="flex items-center justify-center gap-x-2">
+            <span class="text-xl">Active Projects</span>
+            <Icon name="rightTopArrow" />
+          </h2>
+      </FadeEffect>
+    </div>
+
+    <div class="">
+      <AnimatedImage
+        imgSrc="hero-img.jpg"
+        client:only="svelte"
+        scrub={false}
+        barColor="bg-slate-200"
+      />
+    </div>
+  </div>
+</section>
