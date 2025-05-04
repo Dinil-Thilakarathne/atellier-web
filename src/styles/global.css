@@ -1,7 +1,14 @@
 @import 'tailwindcss';
+@font-face {
+  font-family: 'clash-display';
+  src: url('/fonts/ClashDisplay.ttf') format('truetype');
+
+}
 
 @theme inline {
   --bg-color: var(--color-slate-200);
+
+  --font-clash-display: 'clash-display', sans-serif;
 }
 
 body {
