@@ -1,36 +1,52 @@
 ---
 import { Image } from 'astro:assets';
 import { NAVIGATION, logo, SITE_NAME } from '../../consts';
+import Fade from '../ui/FadeEffect.svelte';
 import StaggerText from '../ui/StaggerText';
 ---
 
 <header class="flex w-full items-center px-4 py-2">
   <div class="container mx-auto flex w-full items-center justify-between">
-    <div class="flex items-center gap-x-2">
-      <Image src={logo} alt="Logo" class="h-8 w-8" />
-      <h1 class="text-lg">{SITE_NAME}</h1>
-    </div>
+    <Fade client:only="svelte">
+      <div class="flex items-center gap-x-2">
+        <Image src={logo} alt="Logo" class="h-8 w-8" />
+        <h1 class="text-lg">{SITE_NAME}</h1>
+      </div>
+    </Fade>
     <div class="">
-      <h3 class="font-semibold">Location</h3>
+      <Fade client:only="svelte">
+        <h3 class="font-semibold">Location</h3>
+      </Fade>
       <ul class="flex items-center gap-x-1">
-        <li>USA,</li>
-        <li>UK</li>
+        {
+          ['USA,', 'UK'].map((location, index) => (
+            <Fade client:only="svelte" delay={index * 0.1}>
+              <li>{location}</li>
+            </Fade>
+          ))
+        }
       </ul>
     </div>
     <div class="w-fit">
-      <h3 class="font-semibold">Navigation</h3>
+      <Fade client:only="svelte">
+        <h3 class="font-semibold">Navigation</h3>
+      </Fade>
       <nav class="flex items-center gap-x-1">
         {
           NAVIGATION.map((item, _) => (
-            <a href={item.href} class="text-gray-900 hover:text-gray-700">
-              <p>
-                <StaggerText
-                  text={`${item.name}${_ != NAVIGATION.length - 1 ? ',' : ''}`}
-                  client:only="react"
-                  as="h1"
-                />
-              </p>
-            </a>
+            <>
+              <Fade client:only="svelte" delay={_ * 0.1}>
+                <a href={item.href} class="text-gray-900 hover:text-gray-700">
+                  <p>
+                    <StaggerText
+                      text={`${item.name}${_ != NAVIGATION.length - 1 ? ',' : ''}`}
+                      client:only="react"
+                      as="h1"
+                    />
+                  </p>
+                </a>
+              </Fade>
+            </>
           ))
         }
       </nav>
