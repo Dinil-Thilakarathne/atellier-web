@@ -1,0 +1,24 @@
+---
+import ScrollBasedText from '../ui/ScrollBasedText.svelte';
+---
+
+<section class="">
+  <div class="container mx-auto flex h-full w-full grow flex-col gap-y-12 py-16">
+    <div class="w-[60%]">
+      <ScrollBasedText
+        text="Great design doesn't have to come at a cost to the environment."
+        className="font-clash-display text-6xl text-balance"
+        client:only="svelte"
+      />
+    </div>
+    <div class="flex w-full justify-end">
+      <div class="w-[40%]">
+        <ScrollBasedText
+          text="From sleek, minimalist designs to more organic, nature-inspired homes, we've designed a wide range of modern, sustainable homes for clients across the country."
+          className="font-clash-display text-xl text-balance"
+          client:only="svelte"
+        />
+      </div>
+    </div>
+  </div>
+</section>
