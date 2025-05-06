@@ -18,39 +18,46 @@
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(ScrollTrigger);
 
+  let ele: HTMLElement | null;
+
   onMount(() => {
-    const text = document.querySelector('.scroll-based-text');
+    if (!ele) return;
 
-    if (!text) return;
+    let scrollTrigger: ScrollTrigger;
 
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: text,
-      start: scrollStart, // Trigger when the top of the element is 80% down the viewport
-      end: scrollEnd, // End when the bottom of the element is 20% up the viewport
-      onEnter: () => {
-        animateText();
-        console.log('Entered viewport');
-      },
-      onLeave: () => {
-        console.log('Left viewport');
-        if (once) return;
-        resetText();
-      },
-      onEnterBack: () => {
-        animateText();
-        console.log('Entered viewport again');
-      },
-      onLeaveBack: () => {
-        console.log('Left viewport again');
-        if (once) return;
-        resetText();
-      },
-      markers: markers, // Show markers for debugging
-      once: once,
-    });
+    if (once == true) {
+      scrollTrigger = ScrollTrigger.create({
+        trigger: ele,
+        start: scrollStart, // Trigger when the top of the element is 80% down the viewport
+        end: scrollEnd, // End when the bottom of the element is 20% up the viewport
+        onEnter: () => {
+          animateText();
+        },
+        markers: markers, // Show markers for debugging
+      });
+    } else {
+      scrollTrigger = ScrollTrigger.create({
+        trigger: ele,
+        start: scrollStart, // Trigger when the top of the element is 80% down the viewport
+        end: scrollEnd, // End when the bottom of the element is 20% up the viewport
+        onEnter: () => {
+          animateText();
+        },
+        onLeave: () => {
+          resetText();
+        },
+        onEnterBack: () => {
+          animateText();
+        },
+        onLeaveBack: () => {
+          resetText();
+        },
+        markers: markers, // Show markers for debugging
+      });
+    }
 
     function animateText() {
-      const split = new SplitText(text, {
+      const split = new SplitText(ele, {
         type: 'lines',
         linesClass: 'line',
         wordsClass: 'word',
@@ -58,7 +65,7 @@
         smartWrap: true,
         autoSplit: true,
         onSplit: self => {
-          gsap.set(text, {
+          gsap.set(ele, {
             autoAlpha: 1, // Set initial opacity to 0
             visibility: 'visible', // Set initial visibility to hidden
           });
@@ -76,18 +83,16 @@
     }
 
     function resetText() {
-      gsap.set(text, {
+      gsap.set(ele, {
         autoAlpha: 0, // Set initial opacity to 0
         visibility: 'hidden', // Set initial visibility to hidden
       });
     }
 
-    onDestroy(() => {
-      scrollTrigger.kill();
-    });
+    // animateText();
   });
 </script>
 
-<h1 class={cn('scroll-based-text text-4xl', className)}>
+<h1 class={cn('scroll-based-text text-4xl', className)} bind:this={ele}>
   {text}
 </h1>
