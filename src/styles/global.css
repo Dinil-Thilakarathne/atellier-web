@@ -2,7 +2,6 @@
 @font-face {
   font-family: 'clash-display';
   src: url('/fonts/ClashDisplay.ttf') format('truetype');
-
 }
 
 @theme inline {
@@ -13,4 +12,10 @@
 
 body {
   background-color: var(--bg-color);
+}
+
+@layer components {
+  section {
+    @apply py-16;
+  }
 }
