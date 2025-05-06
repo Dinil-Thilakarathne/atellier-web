@@ -1,0 +1,52 @@
+---
+import ScrollBasedText from '../ui/ScrollBasedText.svelte';
+import AnimatedImage from '../ui/AnimatedImage.svelte';
+---
+
+<section>
+  <div
+    class="container mx-auto flex h-full w-full grow flex-col items-center justify-center gap-y-32 py-16"
+  >
+    <div class="grid w-full grid-cols-[30%_1fr] gap-x-8">
+      <div class="flex h-full flex-col justify-between">
+        <div>
+          <ScrollBasedText
+            text="Projects"
+            className="font-clash-display text-4xl text-balance"
+            client:only="svelte"
+          />
+          <ScrollBasedText
+            text="Our portfolio showcases a range of projects, from cozy living rooms to luxurious bedrooms, and everything in between. We have worked on residential projects, commercial spaces, and hospitality interiors, and have experience working with a variety of design styles."
+            className="font-clash-display text-xl text-balance"
+            client:only="svelte"
+          />
+        </div>
+        <div>
+          <AnimatedImage imgSrc="project1.jpg" barColor="bg-slate-200" client:only="svelte" />
+        </div>
+      </div>
+      <div>
+        <AnimatedImage imgSrc="project2.jpg" barColor="bg-slate-200" client:only="svelte" />
+      </div>
+    </div>
+    <div class="grid w-full grid-cols-[45%_1fr] gap-x-8">
+      <div>
+        <AnimatedImage imgSrc="project3.png" barColor="bg-slate-200" client:only="svelte" />
+      </div>
+      <div class="flex h-full flex-col justify-between pl-16">
+        <div>
+          <ScrollBasedText
+            text="Projects"
+            className="font-clash-display text-4xl text-balance"
+            client:only="svelte"
+          />
+          <ScrollBasedText
+            text="Our portfolio showcases a range of projects, from cozy living rooms to luxurious bedrooms, and everything in between. We have worked on residential projects, commercial spaces, and hospitality interiors, and have experience working with a variety of design styles."
+            className="font-clash-display text-xl text-balance"
+            client:only="svelte"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
