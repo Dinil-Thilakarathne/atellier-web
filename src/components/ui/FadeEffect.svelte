@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import { animate } from 'motion/react';
+ 
 
   export let duration = 0.5;
   export let delay = 0;
