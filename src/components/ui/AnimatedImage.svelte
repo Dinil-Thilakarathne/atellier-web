@@ -7,8 +7,8 @@
   export let imgSrc: AnimatedImgProps['imgSrc'] = '';
   export const barH: AnimatedImgProps['barHeight'] = 40;
 
-  export let scrub = true;
   export let barColor = 'bg-white';
+  export const once = false;
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -18,13 +18,17 @@
     const img = container.querySelector('img');
     const imgWrapper = container.querySelector('.img-wrapper');
 
+    console.log(img, imgWrapper);
+
     if (!img || !imgWrapper) return;
 
     const setupAnimation = () => {
       const imgHeight = img.clientHeight;
       const barHeight = barH;
 
-      const barCount = Math.floor(imgHeight / barHeight);
+      const barCount = Math.ceil(imgHeight / barHeight);
+
+      let scrollTrigger: ScrollTrigger;
 
       for (let i = 0; i < barCount; i++) {
         const bar = document.createElement('div');
@@ -34,37 +38,38 @@
         bar.classList.add(barColor);
         imgWrapper.appendChild(bar);
 
-        if (scrub) {
-          gsap.to(bar, {
-            display: 'block',
-            clipPath: 'inset(0 -2% 100% 0)',
-            duration: 0.8,
-            delay: i * 0.1,
-            ease: 'power1.in',
-
-            scrollTrigger: {
-              trigger: img,
-              start: 'top 90%',
-              end: 'center 60%',
-              scrub: scrub,
-              toggleActions: 'play none none reverse',
-            },
+        if (once) {
+          scrollTrigger = ScrollTrigger.create({
+            trigger: img,
+            start: 'top 90%',
+            end: 'top +=100px',
+            markers: false,
+            onEnter: () => animateBar(bar),
           });
         } else {
+          scrollTrigger = ScrollTrigger.create({
+            trigger: img,
+            start: 'top 90%',
+            end: 'bottom 50%+=100px',
+            markers: false,
+            onEnter: () => animateBar(bar),
+            onEnterBack: () => animateBar(bar),
+          });
+        }
+
+        function animateBar(bar: HTMLDivElement) {
           gsap.to(bar, {
             display: 'block',
             clipPath: 'inset(0 -2% 100% 0)',
-            duration: 0.8,
+            duration: 0.6,
             delay: i * 0.1,
             ease: 'power1.in',
             onComplete: () => {
-              imgWrapper.removeChild(bar);
+              if (imgWrapper) imgWrapper.removeChild(bar);
             },
           });
         }
       }
-
-      console.log(imgHeight, barHeight, barCount);
     };
     img.addEventListener('load', setupAnimation);
   });
